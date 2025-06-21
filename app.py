@@ -26,7 +26,7 @@ with col2:
     creativity = st.slider("Creativity", 0.5, 1.0, 0.8)
 
 # Generate button
-if st.button("‚ú® Generate Story"):
+if st.button("AI Generate Story"):
     if not prompt.strip():
         st.error("Please enter a prompt!")
     else:
