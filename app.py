@@ -1,6 +1,8 @@
 import streamlit as st
 from transformers import pipeline
 import time
+from image_generation import generate_image
+import time
 
 # Initialize the AI model
 @st.cache_resource
