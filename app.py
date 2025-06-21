@@ -2,7 +2,9 @@ import streamlit as st
 from transformers import pipeline
 import time
 from image_generation import generate_image
-import time
+
+# ⚠️ TEMPORARY API KEY - DELETE AFTER TESTING ⚠️
+TOGETHER_API_KEY = "your-api-key-here"  # PUT YOUR KEY HERE
 
 # Initialize the AI model
 @st.cache_resource
@@ -52,40 +54,17 @@ if st.button("✨ Generate Story"):
                 # Download option
                 st.download_button("📥 Download Story", story, file_name="story.txt")
                 
-            except Exception as e:
-                st.error(f"Something went wrong: {str(e)}")
-                st.info("Try a shorter story or different prompt")
-
-st.caption("Built with GPT-2 and Streamlit")
-# Generate button
-if st.button("✨ Generate Story"):
-    if not prompt.strip():
-        st.error("Please enter a prompt!")
-    else:
-        with st.spinner("Creating your story..."):
-            try:
-                # ... (existing story generation code) ...
-                
-                # Display story
-                story = result[0]['generated_text'].replace(prompt, "").strip()
-                st.subheader("Your Story:")
-                st.write(story)
-                
-                # Download option
-                st.download_button("📥 Download Story", story, file_name="story.txt")
-                
-                # --- ADD IMAGE GENERATION HERE ---
+                # Image generation section
                 st.divider()
                 st.subheader("Generate Story Cover Art")
                 
-                # Add a button for image generation
                 if st.button("🖼️ Generate Cover Image", key="image_button"):
                     with st.spinner("Creating your cover art..."):
                         try:
                             # Generate image using Together AI
                             image_data = generate_image(
                                 prompt=prompt,
-                                api_key=st.secrets["TOGETHER_API_KEY"]
+                                api_key=TOGETHER_API_KEY  # Using the temporary key
                             )
                             
                             if image_data:
@@ -98,8 +77,9 @@ if st.button("✨ Generate Story"):
                                 )
                         except Exception as e:
                             st.error(f"Image generation error: {str(e)}")
-                # --- END OF IMAGE SECTION ---
                 
             except Exception as e:
                 st.error(f"Something went wrong: {str(e)}")
                 st.info("Try a shorter story or different prompt")
+
+st.caption("Built with GPT-2 and Streamlit")
