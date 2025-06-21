@@ -21,41 +21,39 @@ def load_story_model():
 
 # Updated image generation function with working endpoint
 def generate_image(prompt, api_key):
-    """Generate image using Together AI's Stable Diffusion XL"""
+    """Generate image using Together AI's FLUX.1-schnell-Free model"""
     if not api_key:
         return None
-        
-    # Use verified working endpoint
-    url = "https://api.together.xyz/inference"
+
+    url = "https://api.together.xyz/v1/inference"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
-    
-    # Use a more reliable model
+
     payload = {
-        "model": "stabilityai/stable-diffusion-xl-base-1.0",
+        "model": "black-forest-labs/FLUX.1-schnell-Free",
         "prompt": prompt,
+        "steps": 30,
+        "n": 1,
         "height": 512,
         "width": 512,
-        "steps": 30,
-        "seed": int(time.time()),
-        "n": 1  # Number of images to generate
+        "seed": int(time.time())
     }
-    
+
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=60)
         response.raise_for_status()
-        
-        # Extract image data from updated response format
         result = response.json()
-        if "output" in result and "choices" in result["output"]:
-            image_base64 = result["output"]["choices"][0]["image_base64"]
+
+        # FLUX returns a list of base64 images under `output` key
+        if "output" in result and isinstance(result["output"], list):
+            image_base64 = result["output"][0]
             return base64.b64decode(image_base64)
         else:
             st.error(f"Unexpected API response: {result}")
             return None
-            
+
     except Exception as e:
         st.error(f"⚠️ Image generation failed: {str(e)}")
         if response:
