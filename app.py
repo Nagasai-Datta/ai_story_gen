@@ -25,7 +25,7 @@ def generate_image(prompt, api_key):
     if not api_key:
         return None
 
-    url = "https://api.together.xyz/v1/inference"
+    url = "https://api.together.xyz/v1/images/generations"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
