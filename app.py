@@ -9,8 +9,8 @@ def load_story_model():
     return pipeline('text-generation', model='gpt2')
 
 # App setup
-st.set_page_config(page_title="AI Story Generator", page_icon="üìñ")
-st.title("üìñ AI Story Generator")
+st.set_page_config(page_title="AI Story Generator", page_icon="📖")
+st.title("📖 AI Story Generator")
 st.subheader("Turn your ideas into stories!")
 
 # User input
@@ -26,7 +26,7 @@ with col2:
     creativity = st.slider("Creativity", 0.5, 1.0, 0.8)
 
 # Generate button
-if st.button("AI Generate Story"):
+if st.button("✨ Generate Story"):
     if not prompt.strip():
         st.error("Please enter a prompt!")
     else:
@@ -49,11 +49,10 @@ if st.button("AI Generate Story"):
                 st.write(story)
                 
                 # Download option
-                st.download_button("üì• Download Story", story, file_name="story.txt")
+                st.download_button("📥 Download Story", story, file_name="story.txt")
                 
             except Exception as e:
                 st.error(f"Something went wrong: {str(e)}")
                 st.info("Try a shorter story or different prompt")
 
 st.caption("Built with GPT-2 and Streamlit")
-
