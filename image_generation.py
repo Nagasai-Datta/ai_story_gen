@@ -1,9 +1,10 @@
 import requests
 import base64
 import time
+import streamlit as st
 
 def generate_image(prompt, api_key):
-    
+    """Generate image using Together AI's Stable Diffusion XL"""
     url = "https://api.together.xyz/v1/images/generations"
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -15,18 +16,18 @@ def generate_image(prompt, api_key):
         "height": 512,
         "width": 512,
         "steps": 30,
-        "seed": int(time.time())  
+        "seed": int(time.time())  # Random seed
     }
     
     try:
-        response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status()  
+        response = requests.post(url, headers=headers, json=payload, timeout=30)
+        response.raise_for_status()  # Raise error for bad status
         
-        
+        # Extract image data
         image_base64 = response.json()["output"]["choices"][0]["image_base64"]
         return base64.b64decode(image_base64)
         
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"API request failed: {str(e)}")
-    except KeyError:
-        raise Exception("Invalid response format from API")
+    except Exception as e:
+        st.error(f"⚠️ Image generation failed: {str(e)}")
+        st.info("This might be due to: \n1. Invalid API key \n2. Server overload \n3. NSFW content")
+        return None
