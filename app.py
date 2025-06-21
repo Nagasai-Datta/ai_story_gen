@@ -4,7 +4,7 @@ import time
 from image_generation import generate_image
 
 # ⚠️ TEMPORARY API KEY - DELETE AFTER TESTING ⚠️
-TOGETHER_API_KEY = "your-api-key-here"  # PUT YOUR KEY HERE
+TOGETHER_API_KEY = "3919c23b8c8c46343b2fffc598514bce81365cd3fbd5885f8baf5fc86b0ae5da"  # PUT YOUR KEY HERE
 
 # Initialize the AI model
 @st.cache_resource
