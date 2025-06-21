@@ -5,7 +5,7 @@ import base64
 import time
 
 # ⚠️  INSECURE - REPLACE WITH ENVIRONMENT VARIABLE LATER ⚠️
-TOGETHER_API_KEY = "YOUR_API_KEY"  # Will be removed later
+TOGETHER_API_KEY = "3919c23b8c8c46343b2fffc598514bce81365cd3fbd5885f8baf5fc86b0ae5da"  # Will be removed later
 
 # Initialize session state
 if 'generated_story' not in st.session_state:
