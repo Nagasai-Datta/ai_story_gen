@@ -57,3 +57,49 @@ if st.button("✨ Generate Story"):
                 st.info("Try a shorter story or different prompt")
 
 st.caption("Built with GPT-2 and Streamlit")
+# Generate button
+if st.button("✨ Generate Story"):
+    if not prompt.strip():
+        st.error("Please enter a prompt!")
+    else:
+        with st.spinner("Creating your story..."):
+            try:
+                # ... (existing story generation code) ...
+                
+                # Display story
+                story = result[0]['generated_text'].replace(prompt, "").strip()
+                st.subheader("Your Story:")
+                st.write(story)
+                
+                # Download option
+                st.download_button("📥 Download Story", story, file_name="story.txt")
+                
+                # --- ADD IMAGE GENERATION HERE ---
+                st.divider()
+                st.subheader("Generate Story Cover Art")
+                
+                # Add a button for image generation
+                if st.button("🖼️ Generate Cover Image", key="image_button"):
+                    with st.spinner("Creating your cover art..."):
+                        try:
+                            # Generate image using Together AI
+                            image_data = generate_image(
+                                prompt=prompt,
+                                api_key=st.secrets["TOGETHER_API_KEY"]
+                            )
+                            
+                            if image_data:
+                                st.image(image_data, caption="Your Story Cover")
+                                st.download_button(
+                                    "📥 Download Image", 
+                                    image_data, 
+                                    file_name="story_cover.png",
+                                    mime="image/png"
+                                )
+                        except Exception as e:
+                            st.error(f"Image generation error: {str(e)}")
+                # --- END OF IMAGE SECTION ---
+                
+            except Exception as e:
+                st.error(f"Something went wrong: {str(e)}")
+                st.info("Try a shorter story or different prompt")
