@@ -1,7 +1,6 @@
 import streamlit as st
 from transformers import pipeline
 import time
-from image_generation import generate_image
 
 
 # Initialize the AI model
