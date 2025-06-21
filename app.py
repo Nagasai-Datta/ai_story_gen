@@ -12,7 +12,7 @@ if 'image_data' not in st.session_state:
     st.session_state.image_data = None
 
 # ⚠️ TEMPORARY API KEY - DELETE AFTER TESTING ⚠️
-TOGETHER_API_KEY = "3919c23b8c8c46343b2fffc598514bce81365cd3fbd5885f8baf5fc86b0ae5da"
+TOGETHER_API_KEY = "tgp_v1_s0WZMuXcEvDFTITcyNjMqAkvHaDkaC-U3YU-koLABWw"
 
 # Initialize the AI model
 @st.cache_resource
